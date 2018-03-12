@@ -18,18 +18,38 @@ static RCTRootView *rootView = nil;
 
 RCT_EXPORT_MODULE(SplashScreen)
 
++ (NSString *)splashImageNameForOrientation {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    CGSize viewSize = CGSizeMake(screenWidth, screenHeight);
+
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+
+    NSString* viewOrientation = @"Portrait";
+    if (UIDeviceOrientationIsLandscape(orientation)) {
+        viewSize = CGSizeMake(viewSize.height, viewSize.width);
+        viewOrientation = @"Landscape";
+    }
+
+    NSArray* imagesDict = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"UILaunchImages"];
+
+    for (NSDictionary* dict in imagesDict) {
+        CGSize imageSize = CGSizeFromString(dict[@"UILaunchImageSize"]);
+        if (CGSizeEqualToSize(imageSize, viewSize) && [viewOrientation isEqualToString:dict[@"UILaunchImageOrientation"]])
+            return dict[@"UILaunchImageName"];
+    }
+    return nil;
+}
+
 + (void)open:(RCTRootView *)v {
    rootView = v;
    UIImageView *view = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
 
-   NSDictionary *dict = @{@"320x480" : @"LaunchImage-700",
-                          @"320x568" : @"LaunchImage-700-568h",
-                          @"375x667" : @"LaunchImage-800-667h",
-                          @"414x736" : @"LaunchImage-800-Portrait-736h"};
-   NSString *key = [NSString stringWithFormat:@"%dx%d",
-       (int)[UIScreen mainScreen].bounds.size.width,
-       (int)[UIScreen mainScreen].bounds.size.height];
-   view.image = [UIImage imageNamed:dict[key]];
+
+   NSString* launchImage = [RNSplashScreen splashImageNameForOrientation];
+
+   view.image = [UIImage imageNamed:launchImage];
 
 
    [[NSNotificationCenter defaultCenter] removeObserver:rootView name:RCTContentDidAppearNotification object:rootView];
