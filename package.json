@@ -1,0 +1,9 @@
+{
+  "name": "rn-splash-screen",
+  "version": "0.0.1",
+  "description": "react native splash screen",
+  "main": "index.js",
+  "author": "Dan Parker",
+  "license": "MIT",
+  "private": false
+}
