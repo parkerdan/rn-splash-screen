@@ -5,5 +5,19 @@
   "main": "index.js",
   "author": "Dan Parker",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parkerdan/rn-splash-screen.git"
+  },
+  "keywords": [
+    "react-native",
+    "splash screen",
+    "component",
+    "splash"
+  ],
+  "bugs": {
+    "url": "https://github.com/parkerdan/rn-splash-screen/issues"
+  },
+  "homepage": "https://github.com/parkerdan/rn-splash-screen#readme"
 }
