@@ -1,6 +1,6 @@
 {
   "name": "rn-splash",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "react native splash screen",
   "main": "index.js",
   "author": "Dan Parker",
